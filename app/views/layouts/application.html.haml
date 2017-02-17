@@ -2,11 +2,30 @@
 %html
   %head
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %meta{:content => "width=device-width, initial-scale=1, shrink-to-fit=no", :name => "viewport"}/
+    // TODO make this the excerpt if there is one
+    %meta{:content => "Awesome Description Here", :name => "description"}/
+
+    // TODO add page title to this
     %title CMS
     = csrf_meta_tags
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
   %body
-    %p.notice= notice
-    %p.alert= alert
-    = yield
+    - if notice
+      %p.notice= notice
+    - if alert
+      %p.alert= alert
+
+
+    %nav.navbar.navbar-toggleable-md.navbar-light.bg-faded.fixed-top
+      %button.navbar-toggler.navbar-toggler-right{"data-target" => "#navbarSupportedContent", "data-toggle" => "collapse", :type => "button"}
+        %span.navbar-toggler-icon
+      = link_to 'Brand Here', root_path, class: 'navbar-brand'
+      #navbarSupportedContent.collapse.navbar-collapse
+        %ul.navbar-nav.mr-auto
+          %li.nav-item.active
+            = link_to 'Blog', posts_path, class: 'nav-link'
+
+    .container-fluid
+      = yield
